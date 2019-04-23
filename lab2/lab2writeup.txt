@@ -1,0 +1,77 @@
+# Name: Zachary Robin
+# Date: 4/11/19
+# Title: Lab2 - Write Up
+# Description: Write up for Lab 2
+
+Step 1: 
+	See lab1.c
+
+Step 2: 
+	a. nestat: It gives the active Internet Connections as well as teh Active UNIX domain sockets (w/o servers). It looks like it provides important information and statistics about the different sockets/connections currently in use. 
+	b. ifconfig: Displays the configuration of all active interfaces. From this you could enable and disable an interface and easily troubleshoot your configurations. 
+	c. hostname: Returns "linux60821" which is the hostname of the system. From this command we can also set the hostname to whatever we would like.
+	d. ping: on its own doesnt really do anything. However, you can use ping in combination with a destination to send an ICMP ECHO_REQUEST and get an ECHO_RESPONSE from the host of gateway. Essentially a call and response to test time elapsed. This is great for getting an understanding of the repsonse time between servers and computers.
+	e. traceroute: When I type "traceroute google.com" it shows me the path a packet took from my computer to the destination. Furthermore it tells you how much time has elapsed. Its a great way to get an understanding of the where the packet is taking the most time. 
+	f.  telnet: Interacting with remote computers. Allows you to give a specific ip and port to test whether it is open or not. It allows you to test the connectivity to remote machines and issue commands. 
+	g: host/dig: used for verifying and troubleshooting DNS problems as well as displaying answers (system name) from requested server. 
+	h: route: shows/manipulate the IP routing table. used for seting up static routes to specific host or netwroks via an interface.
+	i: arp: manipulates or displays the kernal's IPv4 network neighbour cache. can add,delete, or display the current content. 
+
+Step 3: 
+	Using:
+	US: 1.208.104.201
+	France: 176.31.84.249
+	Japan: 45.121.184.236	
+	a. 
+	US: 4 packets transmitted, 4 received, 0% packet loss
+	France: 5 packets transmitted, 5 received, 0% packet loss
+	Japan: 4 packets transmitted, 4 received, 0% packet loss
+	b.
+	US: 4.550ms
+	France: 142.884ms
+	Japan: 194.605ms
+	c. 
+	These results make sense when you think about the location of the servers in relation to my computer. US is the shortest time since the server is in the same continent. Next France because it is the first country after the Atlantic undersea cable. And lastly Japan, since it has to go all the way through the US to the east coast, then Europe and finally over to Japan.
+
+Step 4:
+
+Step 5: 
+	a. I get the response of:
+	   Trying 128.119.245.12...
+	   Connected to gaia.cs.umass.edu.
+	   Escape character is '^]'.
+	b. 
+	   Returned is a index page with a bunch of information on it. 
+	c.
+	   -You are getting the index file through the path "/kurose_ross/interactive/index.php HTTP/1.1"
+	   -HTTP/1.1 200 
+	   -tables, <p>,lists, links, amd images .jpg
+Step 6:
+	Facebook.com 80: 
+		HTTP/1.1 301 Moved Permanently
+		Vary: Accept-Encoding
+		Location: http://www.facebook.com/
+		Content-Type: text/html; charset="utf-8"
+		X-FB-Debug: 2yp3RU+8E2rTqrkrlsdKz7CWKVKYFJpKSjXTvxIaW2piE5u78y11U/aGZjak3xTZsRaxq6UPsS7ln3meBGJ+fw==
+		Date: Fri, 12 Apr 2019 02:47:37 GMT
+		Connection: close
+		Content-Length: 0
+	Facebook.com 3380:
+	no response 
+	"connection closed by foriegn host"
+	
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
