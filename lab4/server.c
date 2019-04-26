@@ -1,8 +1,8 @@
 /* 
 * Name: Zachary Robin
-* Date: 4/18/2019
-* Title: Lab3 - Part 6
-* Description: This program is the server side of a Client – Server using TCP/IP
+* Date: 4/25/2019
+* Title: Lab4
+* Description: 1. To build a concurrent server using TCP/IP socket to accept connections from multiple clients at the same time
 */
 
 /**************************
@@ -17,13 +17,18 @@
 #include <errno.h>
 #include <string.h>
 #include <sys/types.h>
+#include <pthread.h>
+#define NCONNS 100
+FILE *fileAddress; //global
+void *start_routine(void *arg);
+pthread_t tids[NCONNS];
 /*********************
 *  main
 *********************/
 int main()
 {
-    int sock, connected, bytes_recieved, true = 1;
-    char send_data[1024], recv_data[1024];
+    // Parent procelsss
+    int sock,  true = 1, i;
     struct sockaddr_in server_addr, client_addr;
     int sin_size;
     //Open socket
@@ -37,7 +42,7 @@ int main()
     server_addr.sin_port = htons(5000);
     server_addr.sin_addr.s_addr = INADDR_ANY;
     //Bind socket
-    if (bind(sock, (struct sockaddr *)&server_addr, sizeof(struct sockaddr)) == -1)
+   if (bind(sock, (struct sockaddr *)&server_addr, sizeof(struct sockaddr)) == -1)
     {
         perror("Unable to bind");
         exit(1);
@@ -49,20 +54,27 @@ int main()
         perror("Listen");
         exit(1);
     }
-    sin_size = sizeof(struct sockaddr_in);
-    while (1)
-    {
-        //Accept
-        connected = accept(sock, (struct sockaddr *)&client_addr, (socklen_t *)&sin_size);
-        printf("I got a connection from (%s , %d)\n",
-               inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
-        while ((bytes_recieved = recv(connected, recv_data, 1024, 0)) > 0)
-        {
-            printf("\t\t\t\t Server: The Client (%s , %d) said: % s\n ",inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port), recv_data);
+
+    for(i=0; i <= NCONNS ; i++){
+        int *CONN = malloc(sizeof(int));
+        *CONN = accept(sock, (struct sockaddr *)&client_addr, (socklen_t *)&sin_size);
+        pthread_create(&tids, NULL, start_routine, CONN);    
+    }
+    fclose(fileAddress);
+     close(sock);
+    return 0;
+}
+
+void *start_routine(void *arg){
+    char  recv_data[1024];
+    int bytes_recieved;
+    int connfd = *(int*)arg;
+    while((bytes_recieved = recv(connfd, recv_data, 1024, 0)) > 0)
+    {    
+            printf("\t\t\t\t Server: ");
             // write(connected, "", 7);
-             // Open another file for writing 
-            FILE *fileAddress;
-            fileAddress = fopen("out.jpg", "wb");
+            // Open global file for writing 
+            fileAddress = fopen("out.txt", "a");
 
             if (!feof(fileAddress))
             {
@@ -72,10 +84,10 @@ int main()
             {
                 printf("\n Unable to Create or Open the Sample.txt File");
             }
-            fclose(fileAddress);  
+            fflush(fileAddress);  //changed to fflush
         }
-        close(connected);
+         
     }
-    close(sock);
-    return 0;
-}
+  
+
+
