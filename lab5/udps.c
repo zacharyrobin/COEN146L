@@ -1,7 +1,7 @@
 /*
- * Name: Xinyu Chen
+ * Name: Zach Robin
  * Date: 4/24/2019
- * Title: Lab3 - Part 4
+ * Title: Lab 5
  * Description: This program mimic a udp server that recieve a file from a client and ouput the file to src.jpg.
  */
 

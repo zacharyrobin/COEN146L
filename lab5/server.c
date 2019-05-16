@@ -20,6 +20,35 @@ UDP socket example, server
 #include<sys/stat.h>
 #include <fcntl.h> 
 #define SIZE 1024
+
+
+
+int main (int, char *[]); 
+
+typedef struct
+{
+	int seq_ack;
+	int length;
+	int checksum;
+} HEADER;
+typedef struct
+{
+	HEADER header;
+	char data[10];
+} PACKET;
+
+int checksum(PACKET* pkt, size_t size)
+{
+	(*pkt).header.checksum = 0;
+	char* head = (char*)pkt;
+	char sum = head[0];
+	
+	int i;
+	for(i=1; i<size; i++)
+		sum ^= head[i];
+	
+	return (int)sum;
+}
 /*********************
 *  main
 *********************/
