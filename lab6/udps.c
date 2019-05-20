@@ -1,8 +1,8 @@
 /*
  * Name: Zach Robin
  * Date: 4/24/2019
- * Title: Lab 5
- * Description:  Server Side: Stop and Wait reliable protocol on top of UDP to provide a reliable transport service
+ * Title: Lab 6
+ * Description:  Server Side: a Stop and Wait reliable protocol on top of UDP to provide a reliable transport service while considering loss
  */
 
 #include <sys/socket.h>
@@ -40,7 +40,7 @@ int main()
         }
 // Set address
     server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(5000);
+    server_addr.sin_port = htons(5012);
     server_addr.sin_addr.s_addr = INADDR_ANY;
 
  //Bind socket to address
